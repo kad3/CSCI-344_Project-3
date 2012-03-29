@@ -7,12 +7,13 @@ var express = require('express')
   , routes = require('./routes');
 
 var app = module.exports = express.createServer();
+var awesome = require('./controllers/word/awesome');
 
 // Configuration
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+  app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -30,10 +31,8 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
+app.get('/word/awesome', awesome.index);
 app.get('/users/:user', routes.user);
-app.get('/test', function(req,res) {
-  res.send('wooooah chinese ninja warriooooooor');
-});
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
