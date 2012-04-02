@@ -19,7 +19,7 @@ t.stream(
             if(tweet.text.match(/awesome/)) {
                if(tweet.entities.urls[0]) {
                  console.log(tweet.entities.urls[0].expanded_url);
-                 client.rpush('links',tweet.entities.urls[0].expanded_url);
+                 client.lpush('links',tweet.entities.urls[0].expanded_url);
                }
             }
 

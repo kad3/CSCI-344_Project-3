@@ -7,7 +7,7 @@ var express = require('express')
   , routes = require('./routes');
 
 var app = module.exports = express.createServer();
-var awesome = require('./controllers/word/awesome');
+//var awesome = require('./controllers/word/awesome');
 
 // Configuration
 
@@ -31,7 +31,7 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-app.get('/word/awesome', awesome.index);
+app.get('/word/awesome', routes.awesome);
 app.get('/users/:user', routes.user);
 
 app.listen(3000);
