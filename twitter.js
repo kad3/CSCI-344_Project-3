@@ -2,18 +2,7 @@ var twitter = require('ntwitter');
 var redis = require('redis');
 var credentials = require('./credentials.js');
 
-//create redis client 
 var client = redis.createClient();
-
-//if the 'awesome' key doesn't exist, create it
-/*
-client.exists('awesome', function(error, exists) {
-    if(error) {
-        console.log('ERROR: '+error);
-    } else if(!exists) {
-        client.set('awesome', 0); //create the awesome key
-    };
-});*/
 
 var t = new twitter({
     consumer_key: credentials.consumer_key,
@@ -24,26 +13,16 @@ var t = new twitter({
 
 t.stream(
     'statuses/filter',
-    { track: ['awesome', 'cool', 'rad', 'gnarly', 'groovy'] },
+    { track: ['awesome'] },
     function(stream) {
         stream.on('data', function(tweet) {
-            console.log(tweet.text);
-            //if awesome is in the tweet text, increment the counter
             if(tweet.text.match(/awesome/)) {
-                client.incr('awesome');
+               if(tweet.entities.urls[0]) {
+                 console.log(tweet.entities.urls[0].expanded_url);
+                 client.rpush('links',tweet.entities.urls[0].expanded_url);
+               }
             }
-            if(tweet.text.match(/cool/)) {
-                client.incr('cool');
-            }
-            if(tweet.text.match(/rad/)) {
-                client.incr('rad');
-            }
-            if(tweet.text.match(/gnarly/)) {
-                client.incr('gnarly');
-            }
-            if(tweet.text.match(/groovy/)) {
-                client.incr('groovy');
-            }
+
         });
     }
 );
