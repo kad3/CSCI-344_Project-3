@@ -1,8 +1,11 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+body {background-color:#292929;color:#bccccb;font-family:sans-serif}
+a {text-decoration:none;color:#00d864}
+a:visited {color:#FFd864}
+a:hover {color:#000000;background-color:#CCCCCC}
+a:active {color:#FFFFFF}
+img {border-style:none}
+a.image-link:hover{background-color:transparent}
+.list {list-style-type:square}
+h1 {font-size:200%;margin-top:10px;color:#bccccb}
+p {font-family:serif;text-align:justify}
 
-a {
-  color: #00B7FF;
-}

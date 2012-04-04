@@ -13,7 +13,7 @@ var t = new twitter({
 
 t.stream(
     'statuses/filter',
-    { track: ['awesome'] },
+    { track: ['awesome','linux'] },
     function(stream) {
         stream.on('data', function(tweet) {
             if(tweet.text.match(/awesome/)) {
@@ -22,7 +22,12 @@ t.stream(
                  client.lpush('links',tweet.entities.urls[0].expanded_url);
                }
             }
-
+            if(tweet.text.match(/linux/)) {
+               if(tweet.entities.urls[0]) {
+                 console.log(tweet.entities.urls[0].expanded_url);
+                 client.lpush('linux',tweet.entities.urls[0].expanded_url);
+               }
+            }
         });
     }
 );

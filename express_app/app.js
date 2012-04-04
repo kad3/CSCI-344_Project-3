@@ -32,6 +32,7 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 app.get('/word/awesome', routes.awesome);
+app.get('/word/linux', routes.linux);
 app.get('/users/:user', routes.user);
 
 app.listen(3000);
